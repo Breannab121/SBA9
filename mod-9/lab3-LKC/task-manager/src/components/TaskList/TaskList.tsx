@@ -1,17 +1,19 @@
+// components/TaskList/TaskList.tsx
 import React from 'react';
-import { TaskItem } from '../TaskItem/TaskItem';
-import type { TaskListProps } from '../../types';
+import TaskItem from './TaskItem';
+import type { Task } from '../../types';
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, onStatusChange, onDelete }) => {
+interface TaskListProps {
+  tasks: Task[];
+  onDelete: (id: string) => void;
+  onToggleStatus: (id: string) => void;
+}
+
+const TaskList: React.FC<TaskListProps> = ({ tasks, onDelete, onToggleStatus }) => {
   return (
     <ul>
-      {tasks.map((task) => (
-        <TaskItem
-          key={task.id}
-          task={task}
-          onStatusChange={onStatusChange}
-          onDelete={onDelete}
-        />
+      {tasks.map(task => (
+        <TaskItem key={task.id} task={task} onDelete={onDelete} onToggleStatus={onToggleStatus} />
       ))}
     </ul>
   );
